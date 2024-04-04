@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">appbandogiadung</string>
+    <string name="opendrawer">open drawer</string>
+    <string name="closerawer">close drawer</string>
+</resources>

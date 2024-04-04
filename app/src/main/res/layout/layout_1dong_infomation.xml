@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    >
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:src="@drawable/baseline_card_giftcard_24"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            >
+            <TextView
+                android:id="@+id/tvnoidungqua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quà hấp dẫn"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+            />
+            <TextView
+                android:id="@+id/tvqua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Voucher, bao lì xì..."
+                android:textColor="@color/red"
+                />
+        </LinearLayout>
+</LinearLayout>
