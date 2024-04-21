@@ -3,7 +3,7 @@ package com.heliwr.appbandogiadung.Model;
 import java.util.List;
 
 public class SERVER {
-    public static String path = "http://192.168.47.193:8080/apidogiadung/";
+    public static String path = "http://192.168.0.191:8080/apidogiadung/";
     public  static  String urllayimagesslide=path+"imgslide/";
     public  static  String urllayimagesspthietbi=path+"imgspthietbi/";
     public  static  String urllayspthietbi=path+"layspthietbi.php";

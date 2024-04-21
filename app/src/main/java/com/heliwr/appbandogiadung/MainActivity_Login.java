@@ -74,7 +74,7 @@ public class MainActivity_Login extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         //Đường link truy cập server
-        String url ="http://192.168.2.28:3000/dang-nhap";
+        String url ="http://192.168.0.191:3000/dang-nhap";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, data, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

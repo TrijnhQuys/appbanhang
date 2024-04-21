@@ -6,8 +6,10 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.heliwr.appbandogiadung.Model.ALLSANPHAM;
@@ -20,10 +22,11 @@ import java.util.ArrayList;
 
 public class MainActivity_Chitietsanpham extends AppCompatActivity {
     ImageView imgspchitiet;
-    TextView tvtenspchitiet, tvdongia, tvmota, tvcuahangcon, tvxuatxu, tvbaohanh, tvsoluong;
-    AppCompatButton btntang, btngiam, btnthemgiohang;
+    TextView tvtenspchitiet, tvdongia, tvmota, tvcuahangcon, tvxuatxu, tvbaohanh;
+    AppCompatButton  btnthemgiohang;
     ALLSANPHAM allsanpham;
     NotificationBadge badge;
+    Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +38,14 @@ public class MainActivity_Chitietsanpham extends AppCompatActivity {
         tvcuahangcon = findViewById(R.id.tvcuahangcon);
         tvbaohanh = findViewById(R.id.baohanh);
         tvxuatxu = findViewById(R.id.xuatxu);
-        btngiam = findViewById(R.id.btngiam);
-        btntang = findViewById(R.id.btntang);
         btnthemgiohang=findViewById(R.id.btnthemsp);
         badge = findViewById(R.id.menu_sl);
-        tvsoluong = findViewById(R.id.tvsoluong);
+        spinner=findViewById(R.id.spinner);
 
+
+        Integer []so=new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+        ArrayAdapter<Integer>integerArrayAdapter=new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, so);
+        spinner.setAdapter(integerArrayAdapter);
         Intent intent =getIntent();
         allsanpham =(ALLSANPHAM) intent.getSerializableExtra("sanpham");
 
@@ -51,23 +56,7 @@ public class MainActivity_Chitietsanpham extends AppCompatActivity {
         tvcuahangcon.setText(allsanpham.cuahangcon);
         tvbaohanh.setText(allsanpham.baohanh);
         tvxuatxu.setText(allsanpham.xuatxu);
-        btntang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                allsanpham.setSoluong(allsanpham.getSoluong() + 1);
-                tvsoluong.setText(String.valueOf(allsanpham.getSoluong()));
-            }
-        });
 
-        btngiam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (allsanpham.getSoluong() > 0) {
-                    allsanpham.setSoluong(allsanpham.getSoluong() - 1);
-                    tvsoluong.setText(String.valueOf(allsanpham.getSoluong()));
-                }
-            }
-        });
 
         FrameLayout frameLayout = findViewById(R.id.frameGiohang);
         frameLayout.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +74,11 @@ public class MainActivity_Chitietsanpham extends AppCompatActivity {
             }
         });
         if (SERVER.manggiohang!=null){
-            badge.setText(String.valueOf(SERVER.manggiohang.size()));
+            int totalItem = 0;
+            for (int i =0;i<SERVER.manggiohang.size();i++){
+                totalItem=totalItem+SERVER.manggiohang.get(i).soluong;
+            }
+            badge.setText(String.valueOf(totalItem));
         }
     }
 
@@ -93,8 +86,7 @@ public class MainActivity_Chitietsanpham extends AppCompatActivity {
     private void themgiohang() {
         if (SERVER.manggiohang.size() > 0) {
             boolean flag = false;
-            String soluongText = tvsoluong.getText().toString();
-            int soluong = Integer.parseInt(soluongText);
+            int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
             for (int i = 0; i < SERVER.manggiohang.size(); i++) {
                 if (SERVER.manggiohang.get(i).getMasanpham()==allsanpham.getMasanpham()) {
                     SERVER.manggiohang.get(i).setSoluong(soluong + SERVER.manggiohang.get(i).getSoluong());
@@ -106,6 +98,7 @@ public class MainActivity_Chitietsanpham extends AppCompatActivity {
             if (!flag) {
                 long gia = Long.parseLong(allsanpham.getDongia()) * soluong;
                 GIOHANG giohang = new GIOHANG();
+                giohang.setTensanpham(allsanpham.tensanpham);
                 giohang.setDongia(gia);
                 giohang.setSoluong(soluong);
                 giohang.setMasanpham(allsanpham.getMasanpham());
@@ -116,11 +109,11 @@ public class MainActivity_Chitietsanpham extends AppCompatActivity {
                 SERVER.manggiohang.add(giohang);
             }
         } else {
-            String soluongText = tvsoluong.getText().toString();
-            int soluong = Integer.parseInt(soluongText);
+            int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
             long gia = Long.parseLong(allsanpham.getDongia() )* soluong;
             GIOHANG giohang = new GIOHANG();
             giohang.setDongia(gia);
+            giohang.setTensanpham(allsanpham.tensanpham);
             giohang.setSoluong(soluong);
             giohang.setMasanpham(allsanpham.getMasanpham());
             giohang.setImgsanpham(allsanpham.getImgsanpham());
@@ -129,7 +122,11 @@ public class MainActivity_Chitietsanpham extends AppCompatActivity {
             giohang.setMota(allsanpham.getMota());
             SERVER.manggiohang.add(giohang);
         }
-        badge.setText(String.valueOf(SERVER.manggiohang.size()));
+        int totalItem = 0;
+        for (int i =0;i<SERVER.manggiohang.size();i++){
+            totalItem=totalItem+SERVER.manggiohang.get(i).soluong;
+        }
+        badge.setText(String.valueOf(totalItem));
     }
 
 }

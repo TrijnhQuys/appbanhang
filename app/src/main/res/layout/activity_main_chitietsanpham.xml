@@ -97,50 +97,12 @@
                         android:textColor="@color/red"
                         />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="58dp"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btngiam"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="#FF6161"
-                        android:text="-"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:textSize="28dp" />
-
-                    <TextView
-                        android:id="@+id/tvsoluong"
-                        android:layout_width="27dp"
-                        android:layout_height="44dp"
-                        android:layout_margin="10dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textSize="30dp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btntang"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:background="#FF6161"
-                        android:text="+"
-                        android:textColor="@color/white"
-                        android:textSize="28dp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="#FF6161"
-                        android:text="Mua"
-                        android:textColor="@color/white"
-                        />
-
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    />
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnthemsp"
                         android:layout_width="120dp"
@@ -148,10 +110,8 @@
                         android:text="Thêm vào giỏ"
                         android:textColor="@color/white"
                         android:background="#FF6161"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
                         />
-
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

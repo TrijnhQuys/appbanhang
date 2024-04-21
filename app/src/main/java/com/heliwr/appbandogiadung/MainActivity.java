@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.heliwr.appbandogiadung.Fragment.Fragment_Home;
 import com.heliwr.appbandogiadung.Fragment.Fragment_Infomation;
 import com.heliwr.appbandogiadung.Fragment.Fragment_Message;
 import com.heliwr.appbandogiadung.Model.SERVER;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     Fragment_Message fragment_message =new Fragment_Message();
     Fragment_Infomation fragment_infomation = new Fragment_Infomation();
     Fragment_Account fragment_account= new Fragment_Account();
+    NotificationBadge badge;
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,11 +232,37 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomnavigationview_main);
         toolbar = findViewById(R.id.toolbar);
         btnsearch = findViewById(R.id.search_main);
+        badge=findViewById(R.id.menu_sl);
+        frameLayout = findViewById(R.id.frameGiohang);
         if (SERVER.manggiohang==null){
             SERVER.manggiohang=new ArrayList<>();
+        }else {
+            int totalItem = 0;
+            for (int i =0;i<SERVER.manggiohang.size();i++){
+                totalItem=totalItem+SERVER.manggiohang.get(i).soluong;
+            }
+            badge.setText(String.valueOf(totalItem));
         }
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent giohang = new Intent(getApplicationContext(), MainActivityGioHang.class);
+                startActivity(giohang);
+            }
+        });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int totalItem = 0;
+        for (int i =0;i<SERVER.manggiohang.size();i++){
+            totalItem=totalItem+SERVER.manggiohang.get(i).soluong;
+        }
+        badge.setText(String.valueOf(totalItem));
+    }
+
     private void LoadBagedeDrawable() {
 //        badgeHome = bottomNavigationView.getOrCreateBadge(R.id.mnhome);
 ////        badgeHome.setNumber(2);
@@ -244,11 +274,11 @@ public class MainActivity extends AppCompatActivity {
 ////        badgeInfomation.setNumber(2);
 //        badgeAccount = bottomNavigationView.getOrCreateBadge(R.id.mnaccount);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_cart,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_cart,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
     public void loadFragment(Fragment f){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_main,f);

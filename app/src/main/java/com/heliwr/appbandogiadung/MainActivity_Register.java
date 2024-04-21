@@ -39,7 +39,7 @@ public class MainActivity_Register extends AppCompatActivity {
         });
     }
     private void registerWithVolley() {
-        String url = "http://192.168.2.28:3000/dang-ky";
+        String url = "http://192.168.0.191:3000/dang-ky";
         //dữ liệu gửi lên service
         JSONObject jsonBody = new JSONObject();
         //đầu tiên mình sẽ đặt giá trị khi nhập vào đối tượng trước
